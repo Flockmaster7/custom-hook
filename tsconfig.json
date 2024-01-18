@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "common/*": ["src/common/*"],
+      "@/*": ["src/*"]
+    },
+    "strict": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "importHelpers": true,
+    "noUnusedLocals": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedParameters": false,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "types": ["@testing-library/jest-dom"]
+  },
+  "include": ["src", "__mocks__", "__test__"]
+}
