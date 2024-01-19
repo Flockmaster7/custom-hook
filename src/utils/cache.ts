@@ -6,12 +6,12 @@ const setCache = <T>(key: string, value: T) => {
   window.localStorage.setItem(key, JSON.stringify(value))
 }
 
-// const removeCache = (key: string) => {
-//   window.localStorage.removeItem(key)
-// }
+const removeCache = (key: string) => {
+  window.localStorage.removeItem(key)
+}
 
 // const clearCache = () => {
 //   window.localStorage.clear()
 // }
 
-export { getCache, setCache }
+export { getCache, setCache, removeCache }

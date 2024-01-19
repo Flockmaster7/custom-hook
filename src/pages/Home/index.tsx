@@ -1,5 +1,6 @@
 import Child from '@/components/Child'
 import useGetState from '@/hooks/useGetState'
+import useLocalStorageState from '@/hooks/useLocalStorageState'
 import useMount from '@/hooks/useMount'
 import usePrevious from '@/hooks/usePrevious'
 import React, { useEffect, useState } from 'react'
@@ -10,16 +11,17 @@ const Home: React.FC = (props) => {
   const [showChild, setShowChild] = useState(true)
 
   useMount(() => {
-    console.log('Home组件创建')
+    console.log('useMount测试，Home组件创建，只执行一次')
   })
 
   useEffect(() => {
-    console.log((getNum as () => any)())
+    console.log('useGetState测试，获取最新num：', getNum())
   }, [count])
 
   const preCount = usePrevious(count)
+  console.log('usePrevious测试，获取上一次的state：', preCount)
 
-  console.log(preCount)
+  const [a, setA] = useLocalStorageState<number>('a', 1)
 
   return (
     <div>
@@ -29,6 +31,10 @@ const Home: React.FC = (props) => {
 
       <br />
       <button onClick={() => setShowChild(false)}>销毁Child</button>
+      <br />
+      <button onClick={() => setA(a + 1)}>
+        useLocalStorageState hook测试 {a}
+      </button>
     </div>
   )
 }
