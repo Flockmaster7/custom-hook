@@ -9,7 +9,9 @@ export default function useSafeState<T>(initState: T): [T, SetState<T>] {
   const setState = (newState: T) => {
     if (!isUnmount.current) {
       setSelfState(newState)
-    } else console.warn('useSafeState测试，组件已经卸载，无法修改状态')
+    } else {
+      console.warn('useSafeState测试，组件已经卸载，无法修改状态')
+    }
   }
 
   return [selfState, setState]

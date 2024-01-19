@@ -72,3 +72,33 @@ type ReturnType<T> = [T, SetState<T>, GetState<T>]
 useGetState<T>(initState: T): ReturnType<T>
 ```
 
+#### :pushpin:  useEffect 支持异步函数的 hook，以获取当前最新值 —— useAsyncEffect
+
+```typescript
+useAsyncEffect<T>(effect: () => AsyncGenerator | Promise<T> | EffectCallback | void, deps: React.DependencyList): void
+```
+
+#### :pushpin:  处理防抖函数的 hook —— useDebounceFn
+
+```typescript
+useDebounceFn(fn: (...args: any[]) => any, wait: number): (...args: any[]) => void
+```
+
+#### :pushpin:  处理节流函数的 hook —— useThrottleFn
+
+```typescript
+useThrottleFn(fn: (...args: any[]) => any, wait: number): (...args: any[]) => void
+```
+
+#### :pushpin:  强制组件重新渲染的 hook —— useUpdate
+
+```typescript
+useUpdate(): void
+```
+
+#### :pushpin:  用于给一个异步函数增加竞态锁，防止并发执行的 hook —— useLockFn
+
+```typescript
+useLockFn<P extends any[] = any[], V = any>(fn: (...args: P) => Promise<V>): (...args: P) => Promise<V | undefined>
+```
+

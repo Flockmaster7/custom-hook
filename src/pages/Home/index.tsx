@@ -1,9 +1,15 @@
 import Child from '@/components/Child'
+import useDebounceFn from '@/hooks/useDebounceFn'
 import useGetState from '@/hooks/useGetState'
 import useLocalStorageState from '@/hooks/useLocalStorageState'
 import useMount from '@/hooks/useMount'
 import usePrevious from '@/hooks/usePrevious'
+import useThrottleFn from '@/hooks/useThrottleFn'
 import React, { useEffect, useState } from 'react'
+import useAsyncEffect from '@/hooks/useAsyncEffect'
+import useUpdate from '@/hooks/useUpdate'
+import useLockFn from '@/hooks/useLockFn'
+import { mockHttp } from '@/utils/mock'
 
 const Home: React.FC = (props) => {
   const [count, setCount] = useState(0)
@@ -23,6 +29,30 @@ const Home: React.FC = (props) => {
 
   const [a, setA] = useLocalStorageState<number>('a', 1)
 
+  const testDebounce = useDebounceFn(() => {
+    console.log('useDebounceFn测试')
+  }, 1000)
+
+  const testThrottle = useThrottleFn(() => {
+    console.log('useThrottleFn测试')
+  }, 1000)
+
+  useAsyncEffect(async () => {
+    const res = await mockHttp()
+    console.log('useAsyncEffect测试', res)
+  }, [])
+
+  useUpdate()
+  useEffect(() => {
+    console.log('useUpdate测试，强制刷新')
+  }, [])
+
+  const lockMockHttp = useLockFn(mockHttp)
+  const getData = async () => {
+    const data = await lockMockHttp()
+    console.log('useLockFn测试', data)
+  }
+
   return (
     <div>
       {showChild && <Child />}
@@ -35,6 +65,13 @@ const Home: React.FC = (props) => {
       <button onClick={() => setA(a + 1)}>
         useLocalStorageState hook测试 {a}
       </button>
+      <br />
+
+      <button onClick={testDebounce}>useDebounceFn测试</button>
+      <button onClick={testThrottle}>useThrottleFn测试</button>
+
+      <br />
+      <button onClick={getData}>测试useLockFn</button>
     </div>
   )
 }

@@ -14,12 +14,6 @@ export default function useLocalStorageState<T>(
     }
   }
 
-  useEffect(() => {
-    return () => {
-      removeCache(key)
-    }
-  }, [])
-
   const [selfState, setSelfState] = useState<T>(initState as () => T)
 
   const setState = (newState: React.SetStateAction<T>) => {
