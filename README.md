@@ -102,3 +102,9 @@ useUpdate(): void
 useLockFn<P extends any[] = any[], V = any>(fn: (...args: P) => Promise<V>): (...args: P) => Promise<V | undefined>
 ```
 
+#### :pushpin:  具有深比较依赖的 useEffect hook —— useDeepCompareEffect
+
+```typescript
+useDeepCompareEffect(effect: React.EffectCallback, deps: React.DependencyList): void
+```
+

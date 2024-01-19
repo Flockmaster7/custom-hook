@@ -10,6 +10,7 @@ import useAsyncEffect from '@/hooks/useAsyncEffect'
 import useUpdate from '@/hooks/useUpdate'
 import useLockFn from '@/hooks/useLockFn'
 import { mockHttp } from '@/utils/mock'
+import useDeepCompareEffect from '@/hooks/useDeepCompareEffect'
 
 const Home: React.FC = (props) => {
   const [count, setCount] = useState(0)
@@ -53,6 +54,16 @@ const Home: React.FC = (props) => {
     console.log('useLockFn测试', data)
   }
 
+  const [obj, setObj] = useState({
+    a: 1,
+    b: {
+      c: 1
+    }
+  })
+  useDeepCompareEffect(() => {
+    console.log('useDeepCompareEffect测试')
+  }, [obj])
+
   return (
     <div>
       {showChild && <Child />}
@@ -72,6 +83,18 @@ const Home: React.FC = (props) => {
 
       <br />
       <button onClick={getData}>测试useLockFn</button>
+      <button
+        onClick={() =>
+          setObj({
+            a: 1,
+            b: {
+              c: count + 1
+            }
+          })
+        }
+      >
+        测试useDeepCompareEffect
+      </button>
     </div>
   )
 }

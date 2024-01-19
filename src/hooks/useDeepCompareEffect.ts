@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import isEqual from 'lodash/fp/isEqual'
 
 export default function useDeepCompareEffect(
@@ -7,11 +7,14 @@ export default function useDeepCompareEffect(
 ) {
   const dependence = useRef(deps)
 
-  isEqual(deps)
+  const [isChange, setIsChange] = useState(false)
 
-  const isDependenceChange = useMemo(() => {}, deps)
+  if (!isEqual(dependence.current, deps)) {
+    dependence.current = deps
+    setIsChange((pre) => !pre)
+  }
 
   useEffect(() => {
     effect()
-  }, [isDependenceChange])
+  }, [isChange])
 }
