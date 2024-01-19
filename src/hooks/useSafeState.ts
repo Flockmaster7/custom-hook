@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import useUnmountedRef from './useUnmountedRef'
-
-type SetState<T> = (state: T) => void
+import { SetState } from '@/types'
 
 export default function useSafeState<T>(initState: T): [T, SetState<T>] {
   const [selfState, setSelfState] = useState(initState)

@@ -1,8 +1,5 @@
 import { useRef, useState } from 'react'
-
-type GetState<T> = () => T
-type SetState<T> = (state: T) => void
-type ReturnType<T> = [T, SetState<T>, GetState<T>]
+import { ReturnType } from '@/types'
 
 export default function useGetState<T>(initState: T): ReturnType<T> {
   const [selfState, setSelfState] = useState(initState)
