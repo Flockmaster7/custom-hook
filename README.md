@@ -14,6 +14,14 @@ npm install
 npm run dev
 ```
 
+### :memo:  ​目录
+
+- src
+  - hooks    --------    自定义 hook
+  - components    --------    hook 测试组件
+  - pages    --------    hook 测试组件
+  - utils    --------    工具方法
+
 ### :key:  自定义 hook
 
 #### :pushpin:  一个只在组件初始化时执行的 Hook —— useMount
