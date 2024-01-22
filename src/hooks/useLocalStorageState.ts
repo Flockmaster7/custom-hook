@@ -1,5 +1,5 @@
-import { getCache, removeCache, setCache } from '@/utils/cache'
-import { useEffect, useState } from 'react'
+import { getCache, setCache } from '@/utils/cache'
+import { useCallback, useState } from 'react'
 
 export default function useLocalStorageState<T>(
   key: string,
@@ -16,10 +16,13 @@ export default function useLocalStorageState<T>(
 
   const [selfState, setSelfState] = useState<T>(initState as () => T)
 
-  const setState = (newState: React.SetStateAction<T>) => {
-    setCache(key, newState)
-    setSelfState(newState)
-  }
+  const setState = useCallback(
+    () => (newState: React.SetStateAction<T>) => {
+      setCache(key, newState)
+      setSelfState(newState)
+    },
+    []
+  )
 
   return [selfState, setState]
 }
