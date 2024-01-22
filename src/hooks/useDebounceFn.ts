@@ -5,11 +5,14 @@ export default function useDebounceFn(
   wait: number
 ) {
   const timer = useRef<any>(null)
-  const debounceFn = useCallback(function (...args: any[]) {
-    clearTimeout(timer.current)
-    timer.current = setTimeout(() => {
-      fn(...args)
-    }, wait)
-  }, [])
+  const debounceFn = useCallback(
+    function (...args: any[]) {
+      clearTimeout(timer.current)
+      timer.current = setTimeout(() => {
+        fn(...args)
+      }, wait)
+    },
+    [fn, wait]
+  )
   return debounceFn
 }

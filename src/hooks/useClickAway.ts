@@ -14,5 +14,5 @@ export default function useClickAway(
     return () => {
       document.removeEventListener('click', handlerClick)
     }
-  })
+  }, [onClickAway, target])
 }

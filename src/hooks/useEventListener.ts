@@ -6,14 +6,11 @@ export default function useEventListener(
   target: any
 ) {
   useEffect(() => {
-    if (target.current) {
-      target.current.addEventListener(eventName, handler)
-    }
+    target.current.addEventListener(eventName, handler)
 
     return () => {
-      if (target) {
-        target.current.removeEventListener(eventName, handler)
-      }
+      console.log(target.current)
+      target.current.removeEventListener(eventName, handler)
     }
-  })
+  }, [eventName, handler, target])
 }

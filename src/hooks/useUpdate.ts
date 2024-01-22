@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 export default function useUpdate() {
   const [forceUpdate, setForceUpdate] = useState(false)
-  useEffect(() => {
-    setForceUpdate(true)
-  }, [])
+
+  const update = useCallback(() => {
+    setForceUpdate(!forceUpdate)
+  }, [forceUpdate])
+
+  return update
 }

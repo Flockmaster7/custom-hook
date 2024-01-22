@@ -15,6 +15,10 @@ export default function useDeepCompareEffect(
   }
 
   useEffect(() => {
+    console.log('effectChange', effect())
+  }, [effect])
+
+  useEffect(() => {
     effect()
   }, [isChange])
 }

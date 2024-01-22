@@ -5,7 +5,7 @@ import useLocalStorageState from '@/hooks/useLocalStorageState'
 import useMount from '@/hooks/useMount'
 import usePrevious from '@/hooks/usePrevious'
 import useThrottleFn from '@/hooks/useThrottleFn'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useAsyncEffect from '@/hooks/useAsyncEffect'
 import useUpdate from '@/hooks/useUpdate'
 import useLockFn from '@/hooks/useLockFn'
@@ -45,7 +45,8 @@ const Home: React.FC = (props) => {
     console.log('useAsyncEffect测试', res)
   }, [])
 
-  useUpdate()
+  const update = useUpdate()
+
   useEffect(() => {
     console.log('useUpdate测试，强制刷新')
   }, [])
@@ -62,9 +63,15 @@ const Home: React.FC = (props) => {
       c: 1
     }
   })
-  useDeepCompareEffect(() => {
-    console.log('useDeepCompareEffect测试')
-  }, [obj])
+
+  const cb = useCallback(() => {
+    console.log('---count', count)
+  }, [count])
+
+  useEffect(() => {
+    console.log('num改变', count)
+  }, [num])
+  useDeepCompareEffect(cb, [obj])
 
   const htmlRef = useRef(null)
   useEventListener(
@@ -112,6 +119,8 @@ const Home: React.FC = (props) => {
       </button>
 
       <button ref={htmlRef}>11</button>
+      <br />
+      <button onClick={update}>测试useUpdate</button>
     </div>
   )
 }
