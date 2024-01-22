@@ -3,14 +3,17 @@ import { useEffect } from 'react'
 export default function useEventListener(
   eventName: keyof HTMLElementEventMap,
   handler: (ev: Event) => void,
-  el: any
+  target: any
 ) {
   useEffect(() => {
-    console.log(eventName, handler, el)
-    el.addEventListener(eventName, handler)
+    if (target.current) {
+      target.current.addEventListener(eventName, handler)
+    }
 
     return () => {
-      el.removeEventListener(eventName, handler)
+      if (target) {
+        target.current.removeEventListener(eventName, handler)
+      }
     }
-  }, [])
+  })
 }

@@ -5,12 +5,14 @@ import useLocalStorageState from '@/hooks/useLocalStorageState'
 import useMount from '@/hooks/useMount'
 import usePrevious from '@/hooks/usePrevious'
 import useThrottleFn from '@/hooks/useThrottleFn'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import useAsyncEffect from '@/hooks/useAsyncEffect'
 import useUpdate from '@/hooks/useUpdate'
 import useLockFn from '@/hooks/useLockFn'
 import { mockHttp } from '@/utils/mock'
 import useDeepCompareEffect from '@/hooks/useDeepCompareEffect'
+import useEventListener from '@/hooks/useEventListener'
+import useClickAway from '@/hooks/useClickAway'
 
 const Home: React.FC = (props) => {
   const [count, setCount] = useState(0)
@@ -64,6 +66,19 @@ const Home: React.FC = (props) => {
     console.log('useDeepCompareEffect测试')
   }, [obj])
 
+  const htmlRef = useRef(null)
+  useEventListener(
+    'click',
+    function (e) {
+      console.log('useEventListener测试', e)
+    },
+    htmlRef
+  )
+
+  useClickAway(function (e) {
+    console.log('useClickAway测试，点击外部区域', e)
+  }, htmlRef)
+
   return (
     <div>
       {showChild && <Child />}
@@ -95,6 +110,8 @@ const Home: React.FC = (props) => {
       >
         测试useDeepCompareEffect
       </button>
+
+      <button ref={htmlRef}>11</button>
     </div>
   )
 }

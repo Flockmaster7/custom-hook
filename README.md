@@ -108,3 +108,15 @@ useLockFn<P extends any[] = any[], V = any>(fn: (...args: P) => Promise<V>): (..
 useDeepCompareEffect(effect: React.EffectCallback, deps: React.DependencyList): void
 ```
 
+#### :pushpin:  自动注册和卸载事件监听的 hook —— useEventListener
+
+```typescript
+useEventListener(eventName: keyof HTMLElementEventMap, handler: (ev: Event) => void, target: any): void
+```
+
+#### :pushpin:  监听目标元素外的点击事件的 hook —— useClickAway
+
+```typescript
+useClickAway(onClickAway: (event: Event) => void, target: any): void
+```
+
