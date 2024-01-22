@@ -120,3 +120,14 @@ useEventListener(eventName: keyof HTMLElementEventMap, handler: (ev: Event) => v
 useClickAway(onClickAway: (event: Event) => void, target: any): void
 ```
 
+#### :pushpin:  发布订阅模式的 hook —— useEvent
+
+```typescript
+interface EventType {
+  [key: string]: FunctionType[]
+}
+type FunctionType = (...args: any[]) => void | any
+
+useEvent(): MyEvent
+```
+
